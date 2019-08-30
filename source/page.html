@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+
+            $(document).ready(function() {
+
+                $("button").click(function() {
+
+                    var iterate; // logic for fonding th
+                    if ($('#checkbox').is(":checked"))  {
+                        iterate = true;
+                    } else {
+                        iterate = false;
+                    }
+
+
+                    var formData = $('form').serialize().match(/\d+/)[0];
+                    //alert(formData + ", " + iterate);
+
+                    $.post("/submit-form",
+                        {
+                            data: "testBoard",
+                            boardNumber: formData,                            
+                        },
+                    function(data, status) {
+                        console.log("Data: " + data + "\nStatus: " + status);
+                    });
+
+                    if (iterate) {
+                        formData++;
+                        console.log("got to this point: " + formData);
+                        document.getElementById('boardNumber').value = formData;
+                    }
+                });
+            });
+            
+        </script>
+    </head>
+    <body>
+        <h1>LCR automated testing jig control</h1>
+        <!-- 
+        <form method="POST" action="/submit-form" onsubmit="stopNav();return false">
+            <input type="submit" name="data" value="testBoard"/>
+          </form>
+        -->
+        <p style="padding-bottom: 0px; margin-bottom: 0px;">Board number</p>
+        <form>
+            <input id="boardNumber" name="boardNumber"/>
+            <input id="checkbox" type="checkbox"/>
+        </form>
+
+        <button>ask pi to test board</button>
+
+    </body>
+</html>
