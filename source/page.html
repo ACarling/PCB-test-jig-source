@@ -8,27 +8,26 @@
 
                 $("button").click(function() {
 
-                    var iterate; // logic for fonding th
+                    var iterate; // logic for checkbox state
                     if ($('#checkbox').is(":checked"))  {
                         iterate = true;
                     } else {
                         iterate = false;
                     }
 
-
-                    var formData = $('form').serialize().match(/\d+/)[0];
+                    var formData = $('form').serialize().match(/\d+/)[0]; //removes any non letter chars from serialised form (i.e the name of the input)
                     //alert(formData + ", " + iterate);
 
-                    $.post("/submit-form",
-                        {
+                    $.post("/submit-form", //make post request to the '/submit-form' route
+                        {                  //json body
                             data: "testBoard",
                             boardNumber: formData,                            
                         },
                     function(data, status) {
-                        console.log("Data: " + data + "\nStatus: " + status);
+                        console.log("\nStatus: " + status);
                     });
 
-                    if (iterate) {
+                    if (iterate) { // if checkbox is ticked (see line 11)
                         formData++;
                         console.log("got to this point: " + formData);
                         document.getElementById('boardNumber').value = formData;
@@ -39,14 +38,10 @@
         </script>
     </head>
     <body>
+        
         <h1>LCR automated testing jig control</h1>
-        <!-- 
-        <form method="POST" action="/submit-form" onsubmit="stopNav();return false">
-            <input type="submit" name="data" value="testBoard"/>
-          </form>
-        -->
         <p style="padding-bottom: 0px; margin-bottom: 0px;">Board number</p>
-        <form>
+        <form> <!-- form coresponds with ajax code-->
             <input id="boardNumber" name="boardNumber"/>
             <input id="checkbox" type="checkbox"/>
         </form>

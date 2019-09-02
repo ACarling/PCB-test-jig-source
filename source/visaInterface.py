@@ -5,7 +5,8 @@ import os
 import sys
 import json
 
-
+#everything thats printed is returned to the webserver, all results are put into a json file
+#TODO: needs to be updated to include gpio libraries to interface with relays
 rm = visa.ResourceManager()
 try:
     inst = rm.open_resource('ASRL4::INSTR')
