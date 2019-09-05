@@ -32,12 +32,10 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 /* TODO:
 * python script
-*   > connect python script to lcr meter on pi ( may need to update python or add pyvisa to path )
 *   > make python script connect to gpio pins and iterate through the relay while recording data through visa interface: return results through json
 * index.js
-*   > recieve board number from page.html and parse that + the json file contents into db
-*       - might have to investigate callbacks for this so it synchronises with the completion of the python script
+*   > make all finished boardnumbers come up in a list
 * database module
-*   > have method to take json and input number and add it to a database, collate all rd values into one row
+*   > make method to retest boards - delete the board of whatever board number is attempted to be tested and replace its data with new data
 *   > method to create csv spreadsheet from sorted database and return it to the user
 */
