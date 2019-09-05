@@ -13,4 +13,5 @@ exports.addJsonToDB = function (boardNumber, jsonData) {
                 [boardNumber, jsonData.rd1, jsonData.rd2, jsonData.rd3, jsonData.rd4, jsonData.rd5, jsonData.rd6, jsonData.rd7, jsonData.total], (err, res) => {
                     if (err) throw err;
                 });
-} 
+    console.log("added board number: " + boardNumber + " to database");
+}

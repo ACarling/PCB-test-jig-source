@@ -25,6 +25,8 @@ except:
 def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (OHMS)
     result = "{"
     for x in range(8):
+        print("RD{}".format(x+1) if x != 7 else "total", end="")
+        
         try:
             inst.write("FUNCTION:impa L")
             time.sleep(1)
@@ -45,9 +47,13 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
             print("error at command queue")
     return result
 
+
+
 def readDataTest():
     result = "{"	
     for x in range(8):
+        print("RD{}".format(x+1) if x != 7 else "total", end="") #prints the test being conducted
+        sys.stdout.flush()
         microHenries = 0
         ohms = 0
 
@@ -58,26 +64,14 @@ def readDataTest():
             "rd{}".format((x+1 if x != 7 else "total")) : {"microHenries": microHenries, "ohms" : ohms}
         }
         result += json.dumps(json_string)[1:-1] + (", " if (x != 7) else "}" )
+        time.sleep(1)
     return result
 
 
-'''
-results = {
-    "rd1": {"microHenries": "110", "ohms": "20"},
-    "rd2": {"microHenries": "120", "ohms": "20"},
-    "rd3": {"microHenries": "130", "ohms": "20"},
-    "rd4": {"microHenries": "140", "ohms": "20"},
-    "rd5": {"microHenries": "150", "ohms": "20"},
-    "rd6": {"microHenries": "160", "ohms": "20"},
-    "rd7": {"microHenries": "170", "ohms": "20"},
-    "total": {"microHenries": "1000", "ohms": "20"}
-}
-'''
 results = readData()
-print(results + "\n\n")
+#print(results + "\n\n")
 
 with open('./source/results.json', 'w') as jsonFile:
     jsonFile.write(results)
 
-print(str(results))
 sys.stdout.flush()

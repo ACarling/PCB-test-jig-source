@@ -4,17 +4,37 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
 
+            function getTestStatus() {
+                $.get ("/result",
+                    function(data, status) {
+                        if(data) {
+                            console.log(data + " " + status);
+                            document.getElementById('testBoard').innerHTML = data;
+                            if(data.includes("total")) {
+                                document.getElementById('testBoard').innerHTML = "finished";
+                                document.getElementById("btn").disabled = false;
+                                alert("laod new board");
+                                return;
+                            } else {
+                                getTestStatus();
+                            }
+                        } else {
+                            getTestStatus();
+                        }
+                    });
+            }
+
             $(document).ready(function() {
 
                 $("button").click(function() {
-
+                    document.getElementById("btn").disabled = true;
                     var iterate; // logic for checkbox state
                     if ($('#checkbox').is(":checked"))  {
                         iterate = true;
                     } else {
                         iterate = false;
                     }
-
+                    
                     var formData = $('form').serialize().match(/\d+/)[0]; //removes any non letter chars from serialised form (i.e the name of the input)
                     //alert(formData + ", " + iterate);
 
@@ -25,6 +45,8 @@
                         },
                     function(data, status) {
                         console.log("\nStatus: " + status);
+                        let x = 0;
+                        getTestStatus();
                     });
 
                     if (iterate) { // if checkbox is ticked (see line 11)
@@ -45,7 +67,8 @@
             <input id="checkbox" type="checkbox"/>
         </form>
 
-        <button>ask pi to test board</button>
+        <button id="btn">ask pi to test board</button>
+        <p>current test: <span id="testBoard"></span></p>
 
     </body>
 </html>
