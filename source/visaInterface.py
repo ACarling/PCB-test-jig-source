@@ -5,7 +5,7 @@ import sys
 import json
 
 #for testing
-#import random
+import random
 
 results = ''
 json_string = '{}'
@@ -24,8 +24,6 @@ except:
 
 def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (OHMS)
     result = "{"
-    
-
     for x in range(8):
         try:
             inst.write("FUNCTION:impa L")
@@ -40,15 +38,15 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
             json_string = {
                 "rd{}".format((x+1 if (x != 7) else "total")) : {"microHenries": microHenries, "ohms" : ohms}
             }
-            result += json.dumps(json_string)[1:-1] + (", " if (x != 7) else "}" ) 
+            result += json.dumps(json_string)[1:-1] + (", " if (x != 7) else "}" )
 
             time.sleep(.25)         
         except:
             print("error at command queue")
-
     return result
 
-''' generate test cases 
+def readDataTest():
+    result = "{"	
     for x in range(8):
         microHenries = 0
         ohms = 0
@@ -57,13 +55,13 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
         ohms = random.randint(10,16)
 
         json_string = {
-            "rd{}".format((x+1 if x != 7 else "total") : {"microHenries": microHenries, "ohms" : ohms}
+            "rd{}".format((x+1 if x != 7 else "total")) : {"microHenries": microHenries, "ohms" : ohms}
         }
         result += json.dumps(json_string)[1:-1] + (", " if (x != 7) else "}" )
     return result
 
 
-
+'''
 results = {
     "rd1": {"microHenries": "110", "ohms": "20"},
     "rd2": {"microHenries": "120", "ohms": "20"},

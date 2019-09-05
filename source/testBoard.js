@@ -6,7 +6,7 @@ const manager = require('./dbManager');
 exports.call_visaInterface = function (boardNumber) {
 
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./source/visaInterface.py"]);
+    var process = spawn('python3', ["./source/visaInterface.py"]);
     let dataString = '';
     console.log(" >> loaded python attempting to gain output: ")
 
