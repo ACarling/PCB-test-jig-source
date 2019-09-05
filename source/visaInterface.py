@@ -14,20 +14,22 @@ except:
     print('fatal error: check instrument is loaded properly and correct drivers are installed')
 
 def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (OHMS)
-    microHenries = 0
-    ohms = 0
-    try:
-        inst.write("FUNCTION:impa L")
-        time.sleep(.7)
-        microHenries = round(1000000 * float(inst.query("FETCH?")[1:12]), 3)
-        time.sleep(.7)
-        inst.write("FUNCTION:impa R")
-        time.sleep(1)
-        ohms = round(float(inst.query("FETCH?")[1:12]), 3)
-        print(str(microHenries) + ", " + str(ohms))
-        return(str(microHenries) + ", " + str(ohms))
-    except:
-        print("error at command queue")
+    for x in range(7):
+        print(x)
+        microHenries = 0
+        ohms = 0
+        try:
+            inst.write("FUNCTION:impa L")
+            time.sleep(.7)
+            microHenries = round(1000000 * float(inst.query("FETCH?")[1:12]), 3)
+            time.sleep(.7)
+            inst.write("FUNCTION:impa R")
+            time.sleep(1)
+            ohms = round(float(inst.query("FETCH?")[1:12]), 3)
+            print(str(microHenries) + ", " + str(ohms))
+            return(str(microHenries) + ", " + str(ohms))
+        except:
+            print("error at command queue")
 
 #data = readData()
 results = {
