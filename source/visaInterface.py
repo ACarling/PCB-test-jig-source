@@ -14,19 +14,22 @@ json_string = '{}'
 #TODO: needs to be updated to include gpio libraries to interface with relays
 rm = visa.ResourceManager()
 
+print("attempting to load instrument")
+sys.stdout.flush()
+
 try:
     inst = rm.open_resource('ASRL/dev/ttyUSB0::INSTR') # in big pi this port is called 'ASRL/dev/ttyUSB0::INSTR' - to test on small pi use the rm.list_resources() function
     print("** loaded instrument **")
 except:
     print('fatal error: check instrument is loaded properly and correct drivers are installed')
-
+sys.stdout.flush()
 
 
 def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (OHMS)
     result = "{"
     for x in range(8):
         print("RD{}".format(x+1) if x != 7 else "total", end="")
-        
+        sys.stdout.flush()
         try:
             inst.write("FUNCTION:impa L")
             time.sleep(1)
