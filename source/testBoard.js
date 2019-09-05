@@ -1,8 +1,9 @@
 const fs = require('fs');
+const manager = require('./dbManager');
 
 //script to make the python do its thing and then put the results in a json file the server
 
-exports.call_visaInterface = function () {
+exports.call_visaInterface = function (boardNumber) {
 
     var spawn = require("child_process").spawn;
     var process = spawn('python', ["./source/visaInterface.py"]);
@@ -19,6 +20,9 @@ exports.call_visaInterface = function () {
         //JSON.parse(dataString);
         let data = JSON.parse(fs.readFileSync('./source/results.json'));
         
-        console.log(" >> recieved: " + data.ohms + ", " + data.microHenries);
+        console.log(" >> recieved: " + data.rd1.microHenries + ", " + data.rd1.ohms);
+        manager.addJsonToDB(boardNumber, data);
     });
 }
+
+

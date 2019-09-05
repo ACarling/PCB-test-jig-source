@@ -1,4 +1,3 @@
-import keyboard
 import visa
 import time
 import os
@@ -31,10 +30,15 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
         print("error at command queue")
 
 #data = readData()
-
 results = {
-    "microHenries": '100',
-    "ohms" : '20'
+    "rd1": {"microHenries": "110", "ohms": "20"},
+    "rd2": {"microHenries": "120", "ohms": "20"},
+    "rd3": {"microHenries": "130", "ohms": "20"},
+    "rd4": {"microHenries": "140", "ohms": "20"},
+    "rd5": {"microHenries": "150", "ohms": "20"},
+    "rd6": {"microHenries": "160", "ohms": "20"},
+    "rd7": {"microHenries": "170", "ohms": "20"},
+    "total": {"microHenries": "1000", "ohms": "20"}
 }
 
 with open('./source/results.json', 'w') as jsonFile:
