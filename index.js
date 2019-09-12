@@ -75,9 +75,6 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 /* TODO:
 * python script
 *   > make python script connect to gpio pins and iterate through the relay while recording data through visa interface: return results through json
-* index.js
-*   > lock the button until test is done
-*   > make all finished boardnumbers come up in a list
 * database module
 *   > make method to retest boards - delete the board of whatever board number is attempted to be tested and replace its data with new data
 *   > method to create csv spreadsheet from sorted database and return it to the user

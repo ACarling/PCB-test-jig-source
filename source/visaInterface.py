@@ -28,7 +28,7 @@ sys.stdout.flush()
 def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (OHMS)
     result = "{"
     for x in range(8):
-        print("RD{}".format(x+1) if x != 7 else "total", end="")
+        print("RD{}".format(x+1) if x <= 7 else "total", end="") # --------- changed != to <= ----------------------- test please
         sys.stdout.flush()
         try:
             inst.write("FUNCTION:impa L")
