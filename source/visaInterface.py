@@ -28,7 +28,7 @@ sys.stdout.flush()
 def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (OHMS)
     result = "{"
     for x in range(8):
-        print("RD{}".format(x+1) if x <= 7 else "total", end="") # --------- changed != to <= ----------------------- test please
+        print("RD{}".format(x+1) if x < 7 else "total", end="") # --------- changed != to <= ----------------------- test please
         sys.stdout.flush()
         try:
             inst.write("FUNCTION:impa L")
@@ -55,7 +55,7 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
 def readDataTest():
     result = "{"	
     for x in range(8):
-        print("RD{}".format(x+1) if x != 7 else "total", end="") #prints the test being conducted
+        print("RD{}".format(x+1) if x < 7 else "total", end="") #prints the test being conducted
         sys.stdout.flush()
         microHenries = 0
         ohms = 0
