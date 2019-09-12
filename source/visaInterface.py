@@ -71,10 +71,16 @@ def readDataTest():
     return result
 
 
-results = readData()
-#print(results + "\n\n")
 
-with open('./source/results.json', 'w') as jsonFile:
-    jsonFile.write(results)
+def main():
+    results = readData()
+    #print(results + "\n\n")
 
-sys.stdout.flush()
+    with open('./source/results.json', 'w') as jsonFile:
+        jsonFile.write(results)
+
+    sys.stdout.flush()
+
+
+#run everything
+main()
