@@ -67,13 +67,13 @@ def readDataTest():
             "rd{}".format((x+1 if x != 7 else "total")) : {"microHenries": microHenries, "ohms" : ohms}
         }
         result += json.dumps(json_string)[1:-1] + (", " if (x != 7) else "}" )
-        time.sleep(1)
+        time.sleep(.5)
     return result
 
 
 
 def main():
-    results = readData()
+    results = readDataTest()
     #print(results + "\n\n")
 
     with open('./source/results.json', 'w') as jsonFile:

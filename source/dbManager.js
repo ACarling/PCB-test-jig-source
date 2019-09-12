@@ -13,10 +13,8 @@ const henriesUpper = 183;
 
 exports.addJsonToDB = function (boardNumber, jsonData) {
 
-    let i = 0;
-    for(; i < 7; i++) {
-        rdi = "rd" + i;
-        if(jsonData.rdi.microHenries > henriesLower && jsonData.rdi.microHenries < henriesUpper) { //test for board shorts and failures
+    for(var key in jsonData) {
+        if(key.microHenries > henriesLower && key.microHenries < henriesUpper) { //test for board shorts and failures
             continue;
         } else {
             return "board fails not adding to database";
