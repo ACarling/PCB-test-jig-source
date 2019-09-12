@@ -60,7 +60,7 @@ def readDataTest():
         microHenries = 0
         ohms = 0
 
-        microHenries = random.randint(160,180)
+        microHenries = random.randint(178,180)
         ohms = random.randint(10,16)
 
         json_string = {
