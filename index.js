@@ -34,7 +34,7 @@ call_visaInterface = function (boardNumber) {
     let dataString = '';
     console.log(" >> loaded python attempting to gain output: ")
     
-    currentTest = "loading board"; //the current test variable is the message routed to the front-ened
+    currentTest = "loading python subroutine"; //the current test variable is the message routed to the front-ened
 
     process.stdout.on('data', function (data) {         //data is everything that has been printed and flushed to the stdout from the python script
         dataString += data.toString();                  //TODO: use this line to get error messages to the front end properly 

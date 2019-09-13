@@ -63,7 +63,7 @@ def readDataTest():
         sys.stdout.flush()
         microHenries = 0
         ohms = 0
-
+        gpioModule.nextCombination(x) #should turn on correct pin
         microHenries = random.randint(175,180)
         ohms = random.randint(10,16)
 
