@@ -28,7 +28,7 @@ def nextCombination(comboNumber):
     #GPIO.output(relayCombinations[comboNumber][0], 1)
     #GPIO.output(relayCombinations[comboNumber][1], 1)
 
-for i in range(8):
-    print(nextCombination(i))
+#for i in range(8):
+#    print(nextCombination(i))
 
 #print(str(relayCombinations[1][0]) + ", " + str(relayCombinations[1][1]))

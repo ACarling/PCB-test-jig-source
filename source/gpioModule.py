@@ -1,6 +1,8 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
+GPIO.setwarning(False)
+
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11, GPIO.OUT) #I
 GPIO.setup(13, GPIO.OUT) #rd2
@@ -32,6 +34,10 @@ def nextCombination(comboNumber):
         GPIO.output(relayCombinations[comboNumber - 1][1], 0)
     GPIO.output(relayCombinations[comboNumber][0], 1)
     GPIO.output(relayCombinations[comboNumber][1], 1)
+    if(comboNumber == 7):
+        GPIO.output(relayCombinations[comboNumber][0], 0)
+        GPIO.output(relayCombinations[comboNumber][1], 0)
+        GPIO.cleanup()
 
 
 '''
