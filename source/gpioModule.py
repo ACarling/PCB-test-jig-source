@@ -15,22 +15,19 @@ relayPins = [11,13,15,16,18,29,31,32]
 
 comboNumber = 0
 
-relayCombinations = {
-    "RD1" : [11, 13],
-    "RD2" : [13, 15],
-    "RD3" : [15, 16],
-    "RD4" : [16, 18],
-    "RD5" : [18, 29],
-    "RD6" : [29, 31],
-    "RD7" : [31, 32],
-    "Total" : [11, 31]
-}
+relayCombinations = [
+    [11, 13],
+    [13, 15],
+    [15, 16],
+    [16, 18],
+    [18, 29],
+    [29, 31],
+    [31, 32],
+    [11, 31]
+]
 
 def nextCombination(comboNumber):
-    if(comboNumber < 1):
-        GPIO.output(relayCombinations[7][0], 0)
-        GPIO.output(relayCombinations[7][1], 0)
-    else:
+    if(comboNumber > 1):
         GPIO.output(relayCombinations[comboNumber - 1][0], 0)
         GPIO.output(relayCombinations[comboNumber - 1][1], 0)
     GPIO.output(relayCombinations[comboNumber][0], 1)
