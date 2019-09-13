@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-GPIO.setwarning(False)
+GPIO.setwarnings(False)
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11, GPIO.OUT) #I
@@ -25,25 +25,19 @@ relayCombinations = [
     [18, 29],
     [29, 31],
     [31, 32],
-    [11, 31]
+    [32, 11]
 ]
 
 def nextCombination(comboNumber):
-    if(comboNumber > 1):
+    if(comboNumber >= 1):
         GPIO.output(relayCombinations[comboNumber - 1][0], 0)
         GPIO.output(relayCombinations[comboNumber - 1][1], 0)
     GPIO.output(relayCombinations[comboNumber][0], 1)
     GPIO.output(relayCombinations[comboNumber][1], 1)
-    if(comboNumber == 7):
-        GPIO.output(relayCombinations[comboNumber][0], 0)
-        GPIO.output(relayCombinations[comboNumber][1], 0)
-        GPIO.cleanup()
 
+def allOff():
+    for i in relayCombinations:
+        GPIO.output(i[0],0)
+        GPIO.output(i[1],0)
+    GPIO.cleanup()
 
-'''
-for i in relayPins:
-	GPIO.output(i, 1)
-	sleep(0.5)
-	GPIO.output(i, 0)
-	sleep(0.5)
-'''

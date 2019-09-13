@@ -84,7 +84,7 @@ def main():
         jsonFile.write(results)
 
     sys.stdout.flush()
-
+    gpioModule.allOff()
 
 #run everything
 main()
