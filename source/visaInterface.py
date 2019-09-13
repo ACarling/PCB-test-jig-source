@@ -4,6 +4,8 @@ import os
 import sys
 import json
 
+import gpioModule
+
 #for testing
 import random
 
@@ -27,10 +29,12 @@ sys.stdout.flush()
 
 def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (OHMS)
     result = "{"
-    for x in range(8):
+    for x in range(8): #0 - 7
         print("RD{}".format(x+1) if x < 7 else "total", end="") # --------- changed != to <= ----------------------- test please
         sys.stdout.flush()
         try:
+            gpioModule.nextCombination(x) #should turn on correct pin
+
             inst.write("FUNCTION:impa L")
             time.sleep(1)
             microHenries = round(1000000 * float(inst.query("FETCH?")[1:12]), 3)
@@ -60,7 +64,7 @@ def readDataTest():
         microHenries = 0
         ohms = 0
 
-        microHenries = random.randint(178,180)
+        microHenries = random.randint(175,180)
         ohms = random.randint(10,16)
 
         json_string = {
