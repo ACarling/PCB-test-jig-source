@@ -49,7 +49,7 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
             }
             result += json.dumps(json_string)[1:-1] + (", " if (x != 7) else "}" )
 
-            time.sleep(.7)         
+            time.sleep(.5)         
         except:
             print("error at command queue")
     return result

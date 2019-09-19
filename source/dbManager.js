@@ -11,12 +11,17 @@ const pool = new Pool({ //change this config data to a restricted json file
 const henriesLower = 175; //exlusive
 const henriesUpper = 183;
 
+const totalUpper = 10;
+const totalLower = 5;
+
 exports.addJsonToDB = function (boardNumber, jsonData) {
 
     let jsonArray = [jsonData.rd1, jsonData.rd2, jsonData.rd3, jsonData.rd4, jsonData.rd5, jsonData.rd6, jsonData.rd7, jsonData.rdtotal];
     for (var i = 0; i < jsonArray.length; i++) {
         let currentTest = jsonArray[i];
-        if(currentTest.microHenries > 200 || (currentTest.microHenries > henriesLower && currentTest.microHenries < henriesUpper)) {
+        if(i == jsonArray.length - 1) {
+            console.log(" ----- total = " + currentTest.microHenries);
+        } else if ((currentTest.microHenries > henriesLower && currentTest.microHenries < henriesUpper)) {
             continue;
         } else {
             console.log("----| " + ((i < jsonArray.length -1) ? ("rd" + (i + 1)) : ("total")) + " failed (" + currentTest.microHenries + ")");
