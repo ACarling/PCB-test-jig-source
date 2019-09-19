@@ -43,11 +43,10 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
             time.sleep(.7)
             ohms = round(float(inst.query("FETCH?")[1:12]), 3)
 
-
+            if(x != 7):
+                microHenries = microHenries / 1000
+                
             json_string = {
-                if(x != 7) {
-                    microHenries = microHenries / 1000
-                }
                 "rd{}".format((x+1 if (x != 7) else "total")) : {"microHenries": microHenries, "ohms" : ohms}
             }
             result += json.dumps(json_string)[1:-1] + (", " if (x != 7) else "}" )
