@@ -34,7 +34,7 @@
                         iterate = false;
                     }
                     
-                    var formData = $('form').serialize().match(/\d+/)[0]; //removes any non letter chars from serialised form (i.e the name of the input)
+                    var formData = $('form').serialize().substring(12, $('form').serialize().length); //removes any non letter chars from serialised form (i.e the name of the input)
                     //alert(formData + ", " + iterate);
 
                     $.post("/submit-form", //make post request to the '/submit-form' route
@@ -68,6 +68,14 @@
 
         <button id="btn">ask pi to test board</button>
         <p>current test: <span id="testBoard"></span></p>
+        
+        <p>
+            <strong>Input guide</strong>    <br>
+            [boardNumber]: regular board (no prefix) <br>
+            a[boardNumber]: amp board ('a' prefix)     <br>
+            b[boardNumber]: base board ('b' prefix)
+            
+        </p>
 
     </body>
 </html>
