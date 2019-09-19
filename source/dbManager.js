@@ -8,8 +8,8 @@ const pool = new Pool({ //change this config data to a restricted json file
     port: 5432
 });
 
-const henriesLower = 175; //exlusive
-const henriesUpper = 183;
+const henriesLower = 180; //exlusive
+const henriesUpper = 190;
 
 const totalUpper = 10;
 const totalLower = 5;
@@ -29,7 +29,8 @@ exports.addJsonToDB = function (boardNumber, jsonData) {
     }
  
 
-    pool.query('INSERT INTO test_res(number, rd1, rd2, rd3, rd4, rd5, rd6, rd7, total) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)',
+    pool.query('INSERT INTO test_res(number, rd1, rd2, rd3, rd4, rd5, rd6, rd7, total) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)' +
+                    'ON CONFLICT (number) DO UPDATE SET rd1 = $2, rd2 = $3, rd3 = $4, rd4 = $5, rd5 = $6, rd6 = $7, rd7 = $8, total = $9',
                 [boardNumber, jsonData.rd1, jsonData.rd2, jsonData.rd3, jsonData.rd4, jsonData.rd5, jsonData.rd6, jsonData.rd7, jsonData.rdtotal], (err, res) => {
                     if (err) throw err;
                 });
