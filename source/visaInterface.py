@@ -36,11 +36,11 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
             gpioModule.nextCombination(x) #should turn on correct pin
 
             inst.write("FUNCTION:impa L")
-            time.sleep(1.5)
+            time.sleep(.7)
             microHenries = round(1000000 * float(inst.query("FETCH?")[1:12]), 3)
-            time.sleep(1.5)
+            time.sleep(.5)
             inst.write("FUNCTION:impa R")
-            time.sleep(1.5)
+            time.sleep(.7)
             ohms = round(float(inst.query("FETCH?")[1:12]), 3)
 
 
@@ -49,7 +49,7 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
             }
             result += json.dumps(json_string)[1:-1] + (", " if (x != 7) else "}" )
 
-            time.sleep(1)         
+            time.sleep(.7)         
         except:
             print("error at command queue")
     return result

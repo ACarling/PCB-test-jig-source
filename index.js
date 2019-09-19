@@ -78,7 +78,6 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 * routing
 *   > write logic to tell front end of board fails test ----
 * python script
-*   > make the gpio thing a module with function open next pin combo
 *   > make python script connect to gpio pins and iterate through the relay while recording data through visa interface: return results through json
 * database module
 *   > make method to retest boards - delete the board of whatever board number is attempted to be tested and replace its data with new data
