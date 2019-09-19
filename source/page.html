@@ -10,8 +10,8 @@
                         if(data) {
                             console.log(data + " " + status);
                             document.getElementById('testBoard').innerHTML = data;
-                            if(data.includes("total")) {
-                                document.getElementById('testBoard').innerHTML = "Load new board";
+                            if(data.includes("finished")) {
+                                document.getElementById('testBoard').innerHTML = "data";
                                 document.getElementById("btn").disabled = false;
                                 return;
                             } else {

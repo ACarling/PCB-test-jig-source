@@ -16,15 +16,18 @@ const totalLower = 5;
 
 exports.addJsonToDB = function (boardNumber, jsonData) {
 
+    let failedTests = "";
+
     let jsonArray = [jsonData.rd1, jsonData.rd2, jsonData.rd3, jsonData.rd4, jsonData.rd5, jsonData.rd6, jsonData.rd7, jsonData.rdtotal];
     for (var i = 0; i < jsonArray.length; i++) {
         let currentTest = jsonArray[i];
+
         if(i == jsonArray.length - 1) {
-            console.log(" ----- total = " + currentTest.microHenries);
+            console.log("----> total = " + currentTest.microHenries);
         } else if ((currentTest.microHenries > henriesLower && currentTest.microHenries < henriesUpper)) {
             continue;
         } else {
-            console.log("----| " + ((i < jsonArray.length -1) ? ("rd" + (i + 1)) : ("total")) + " failed (" + currentTest.microHenries + ")");
+            failedTests += "----| " + "rd" + (i + 1) + " failed (" + currentTest.microHenries + ")\n";
         }
     }
  
@@ -36,5 +39,6 @@ exports.addJsonToDB = function (boardNumber, jsonData) {
                 });
     console.log("added board number: " + boardNumber + " to database");
 
+    return ("finished: " + failedTests.length > 1 ? failedTests : " no failed tests");
     //return "board inductance fits in range " + henriesLower + " < x < " + henriesUpper + ", it has been added to database";
 }
