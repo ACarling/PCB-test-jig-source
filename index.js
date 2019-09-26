@@ -82,7 +82,7 @@ app.get('/download', (req, res) => {
     //});
 });
 
-
+manager.convertDbToCsv();
 
 /* TODO:
 * routing
