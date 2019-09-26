@@ -43,3 +43,21 @@ exports.addJsonToDB = function (boardNumber, jsonData) {
     return (failedTests.length < 1 ? "finished no failed tests" : failedTests);
     //return "board inductance fits in range " + henriesLower + " < x < " + henriesUpper + ", it has been added to database";
 }
+
+
+let converter = require('json-2-csv');
+
+exports.convertDbToCsv = function (callback) {
+    let results = [];
+
+    pool.query("SELECT * FROM test_res", function (err, result, fields) {
+        if (err) throw err;
+        var jsonResult = JSON.stringify(result.rows[0]);
+        jsonResult = JSON.parse("[" + jsonResult + "]");
+        converter.json2csv(jsonResult, (err, csv) => {
+            if (err) throw err;
+            console.log(csv);
+        });
+        //console.log(jsonResult);
+      });
+    }

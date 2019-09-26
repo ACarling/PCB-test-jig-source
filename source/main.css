@@ -3,3 +3,12 @@ h1 {
     font-family: sans-serif;
     margin-left: 25px;
 }
+
+button {
+    color: black;
+}
+
+button:disabled,
+button[disabled]{
+  background-color: rgb(199, 113, 113);
+}

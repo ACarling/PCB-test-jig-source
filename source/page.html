@@ -27,6 +27,7 @@
 
                 $("button").click(function() {
                     document.getElementById("btn").disabled = true;
+
                     var iterate; // logic for checkbox state
                     if ($('#checkbox').is(":checked"))  {
                         iterate = true;
@@ -76,6 +77,10 @@
             b[boardNumber]: base board ('b' prefix)
             
         </p>
+
+        <form action="/download" method="GET">
+            <input type="submit", value="Download current databse as CSV">
+        </form>
 
     </body>
 </html>
