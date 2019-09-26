@@ -77,7 +77,7 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 app.get('/download', (req, res) => {
     manager.convertDbToCsv(function() {
-        res.download('./source/new.csv', (err) => {
+        res.download('./source/dbContents.csv', (err) => {
             if (err) throw err;
         });
     });
