@@ -4,7 +4,7 @@ const pool = new Pool({ //change this config data to a restricted json file
     user: 'pi',
     host: 'localhost',
     database: 'lcrtest',
-    password: 'password',
+    password: 'raspberry',
     port: 5432
 });
 
