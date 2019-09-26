@@ -47,23 +47,52 @@ exports.addJsonToDB = function (boardNumber, jsonData) {
 
 let converter = require('json-2-csv');
 
-exports.convertDbToCsv = function (callback) {
-    let results = [];
 
+exports.convertDbToCsv = function (callback) {
+    var jsonResult = [];
     pool.query("SELECT * FROM test_res", function (err, result, fields) {
-            if (err) throw err;
-            for(var i = 0; i < Object.keys(result.rows).length; i++) {
-                var jsonResult =+ JSON.stringify(result.rows[i]);
+        if (err) throw err;
+
+
+        function arrayToCSV (callback) {
+            for(var i = 0; i < result.rows.length; i++) {
+                jsonResult[i] = JSON.stringify(result.rows[i]);
             }
-            jsonResult = JSON.parse("[" + jsonResult + "]");
-            converter.json2csv(jsonResult, (err, csv) => {
+            callback();
+        }
+        
+
+        function DbJsonToCsv (i) {
+            let rowJson = JSON.parse("[" + jsonResult[i] + "]");
+            converter.json2csv(rowJson, (err, csv) => {
                 if (err) throw err;
                 console.log(csv);
-                fs.writeFile('./source/dbContents.csv', csv, function (err) {
-                    if (err) throw err;
-                    console.log('Saved!');
-                    callback();
-		        });
+                
+                if(i != 0) {
+                    fs.appendFile('./source/dbContents.csv', csv, function (err) {
+                        if (err) throw err;
+                        console.log('appended');
+                        if(!(i < jsonResult.length)) {
+                            DbJsonToCsv(i + 1);
+                        }
+                    });
+                } else {
+                    fs.writeFile('./source/dbContents.csv', csv, function (err) {
+                        if (err) throw err;
+                        console.log('Saved!');
+                        if(!(i < jsonResult.length)) {
+                            DbJsonToCsv(i + 1);
+                        }
+                    });
+                }
             });
+        }
+
+        arrayToCSV(function () {
+            DbJsonToCsv(0);
         });
-    }
+
+        callback();
+
+    });
+}
