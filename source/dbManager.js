@@ -4,7 +4,7 @@ const pool = new Pool({ //change this config data to a restricted json file
     user: 'pi',
     host: 'localhost',
     database: 'lcrtest',
-    password: 'password',
+    password: 'raspberry',
     port: 5432
 });
 
@@ -70,7 +70,7 @@ exports.convertDbToCsv = function (callback) {
                 console.log(csv);
                 
                 if(i != 0) {
-                    fs.appendFile('./source/dbContents.csv', csv.substring(221), function (err) {
+                    fs.appendFile('./source/dbContents.csv', "\n" + csv.substring(221), function (err) {
                         if (err) throw err;
                         console.log('Appended');
                         if(i < jsonResult.length - 1) {
