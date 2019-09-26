@@ -53,7 +53,7 @@ exports.convertDbToCsv = function (callback) {
     pool.query("SELECT * FROM test_res", function (err, result, fields) {
             if (err) throw err;
             for(var i = 0; i < Object.keys(result.rows).length; i++) {
-                var jsonResult = JSON.stringify(result.rows[0]);
+                var jsonResult = JSON.stringify(result.rows[i]);
             }
             jsonResult = JSON.parse("[" + jsonResult + "]");
             converter.json2csv(jsonResult, (err, csv) => {
@@ -63,7 +63,7 @@ exports.convertDbToCsv = function (callback) {
                     if (err) throw err;
                     console.log('Saved!');
                     callback();
-		});
+		        });
             });
         });
     }
