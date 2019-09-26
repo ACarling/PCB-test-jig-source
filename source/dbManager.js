@@ -4,7 +4,7 @@ const pool = new Pool({ //change this config data to a restricted json file
     user: 'pi',
     host: 'localhost',
     database: 'lcrtest',
-    password: 'raspberry',
+    password: 'password',
     port: 5432
 });
 
@@ -49,50 +49,54 @@ let converter = require('json-2-csv');
 
 
 exports.convertDbToCsv = function (callback) {
-    var jsonResult = [];
+    
     pool.query("SELECT * FROM test_res", function (err, result, fields) {
         if (err) throw err;
-
+        var jsonResult = [];
 
         function arrayToCSV (callback) {
             for(var i = 0; i < result.rows.length; i++) {
                 jsonResult[i] = JSON.stringify(result.rows[i]);
+                //console.log(result.rows[i]);
             }
-            callback();
+            callback(jsonResult);
         }
         
 
-        function DbJsonToCsv (i) {
+        function DbJsonToCsv (i, jsonResult) {
             let rowJson = JSON.parse("[" + jsonResult[i] + "]");
             converter.json2csv(rowJson, (err, csv) => {
                 if (err) throw err;
                 console.log(csv);
                 
                 if(i != 0) {
-                    fs.appendFile('./source/dbContents.csv', csv, function (err) {
+                    fs.appendFile('./source/dbContents.csv', csv.substring(221), function (err) {
                         if (err) throw err;
-                        console.log('appended');
-                        if(!(i < jsonResult.length)) {
-                            DbJsonToCsv(i + 1);
+                        console.log('Appended');
+                        if(i < jsonResult.length - 1) {
+                            DbJsonToCsv(i + 1, jsonResult);
+                        } else { 
+                            callback();
+                            return;
                         }
                     });
                 } else {
                     fs.writeFile('./source/dbContents.csv', csv, function (err) {
                         if (err) throw err;
-                        console.log('Saved!');
-                        if(!(i < jsonResult.length)) {
-                            DbJsonToCsv(i + 1);
+                        console.log('Saved');
+                        if(i < jsonResult.length - 1) {
+                            DbJsonToCsv(i + 1, jsonResult);
+                        } else {
+                            callback();
+                            return;
                         }
                     });
                 }
             });
         }
 
-        arrayToCSV(function () {
-            DbJsonToCsv(0);
-        });
-
-        callback();
-
+        arrayToCSV(function (array) {
+            DbJsonToCsv(0, array);
+        });      
     });
 }
