@@ -86,11 +86,4 @@ app.get('/download', (req, res) => {
 //manager.convertDbToCsv();
 
 /* TODO:
-* routing
-*   > write logic to tell front end of board fails test ----
-* python script
-*   > make python script connect to gpio pins and iterate through the relay while recording data through visa interface: return results through json
-* database module
-*   > make method to retest boards - delete the board of whatever board number is attempted to be tested and replace its data with new data
-*   > method to create csv spreadsheet from sorted database and return it to the user
 */
