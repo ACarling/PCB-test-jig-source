@@ -76,13 +76,14 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 // -- download stuff (in test)
 
 app.get('/download', (req, res) => {
-    manager.convertDbToCsv();
-    //res.download('./source/new.csv', (err) => {
-    //    if (err) throw err;
-    //});
+    manager.convertDbToCsv(function() {
+        res.download('./source/new.csv', (err) => {
+            if (err) throw err;
+        });
+    });
 });
 
-manager.convertDbToCsv();
+//manager.convertDbToCsv();
 
 /* TODO:
 * routing
