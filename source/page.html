@@ -4,6 +4,31 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
 
+
+            function validateInput(formInput) {
+                /*
+                * letter followed by number
+                * or just a number
+                * letter cannot be after number
+                * letter must only be a - for amp, or b - for base
+                */
+                if(formInput.match(/^[0-9]*$/)) {
+                    return true;
+                } else if (formInput.length == 1 && !formInput.match(/^[0-9]*$/)) {
+                    return false;
+                } else {
+                    let type = formInput.charAt(0);
+                    let number = formInput.substring(1);
+                    console.log(type + ", " + number);
+                    if(!(type.match(/a/ig) || type.match(/b/ig)) || !number.match(/^[0-9]*$/)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+                
+            }
+
             function getTestStatus() {
                 $.get ("/result",
                     function(data, status) {
@@ -26,33 +51,37 @@
             $(document).ready(function() {
 
                 $("button").click(function() {
-                    document.getElementById("btn").disabled = true;
-
-                    var iterate; // logic for checkbox state
-                    if ($('#checkbox').is(":checked"))  {
-                        iterate = true;
-                    } else {
-                        iterate = false;
-                    }
-                    
                     var formData = $('form').serialize().substring(12, $('form').serialize().length); //removes any non letter chars from serialised form (i.e the name of the input)
                     //alert(formData + ", " + iterate);
+                        if(formData.length > 0 && validateInput(formData)) {
+                            document.getElementById("btn").disabled = true;
 
-                    $.post("/submit-form", //make post request to the '/submit-form' route
+                        var iterate; // logic for checkbox state
+                        if ($('#checkbox').is(":checked"))  {
+                            iterate = true;
+                        } else {
+                            iterate = false;
+                        }
+                        
+                        console.log("input passed");
+                        $.post("/submit-form", //make post request to the '/submit-form' route
                         {                  //json body
                             data: "testBoard",
                             boardNumber: formData,                            
                         },
-                    function(data, status) {
-                        console.log("\nStatus: " + status);
-                        let x = 0;
-                        getTestStatus();
-                    });
+                        function(data, status) {
+                            console.log("\nStatus: " + status);
+                            let x = 0;
+                            getTestStatus();
+                        });
 
-                    if (iterate) { // if checkbox is ticked (see line 11)
-                        formData++;
-                        console.log("got to this point: " + formData);
-                        document.getElementById('boardNumber').value = formData;
+                        if (iterate) { // if checkbox is ticked (see line 11)
+                            formData++;
+                            //console.log("got to this point: " + formData);
+                            document.getElementById('boardNumber').value = formData;
+                        }
+                    } else {
+                        alert("check input is valid");
                     }
                 });
             });
