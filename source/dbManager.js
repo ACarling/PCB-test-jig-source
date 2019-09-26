@@ -4,7 +4,7 @@ const pool = new Pool({ //change this config data to a restricted json file
     user: 'pi',
     host: 'localhost',
     database: 'lcrtest',
-    password: 'password',
+    password: 'raspberry',
     port: 5432
 });
 
@@ -62,8 +62,8 @@ exports.convertDbToCsv = function (callback) {
                 fs.writeFile('./source/dbContents.csv', csv, function (err) {
                     if (err) throw err;
                     console.log('Saved!');
-                });
+                    callback();
+		});
             });
         });
-        callback();
     }

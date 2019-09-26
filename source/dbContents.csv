@@ -1,2 +1,2 @@
-id,number,rd1.microHenries,rd1.ohms,rd2.microHenries,rd2.ohms,rd3.microHenries,rd3.ohms,rd4.microHenries,rd4.ohms,rd5.microHenries,rd5.ohms,rd6.microHenries,rd6.ohms,rd7.microHenries,rd7.ohms,total.microHenries,total.ohms
-6,5,178,10,180,16,180,12,178,14,175,15,176,10,175,13,175,15
+number,rd1.microHenries,rd1.ohms,rd2.microHenries,rd2.ohms,rd3.microHenries,rd3.ohms,rd4.microHenries,rd4.ohms,rd5.microHenries,rd5.ohms,rd6.microHenries,rd6.ohms,rd7.microHenries,rd7.ohms,total.microHenries,total.ohms
+a7,186.261,14.895,186.067,18.342,186.404,18.496,186.56,18.432,170.898,16.157,186.171,17.877,185.421,16.49,8.285,118.088
