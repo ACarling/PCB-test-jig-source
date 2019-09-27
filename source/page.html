@@ -50,6 +50,8 @@
 
             $(document).ready(function() {
 
+                //add ajax for shut down button here
+
                 $("button").click(function() {
                     var formData = $('form').serialize().substring(12, $('form').serialize().length); //removes any non letter chars from serialised form (i.e the name of the input)
                     //alert(formData + ", " + iterate);
@@ -111,10 +113,10 @@
             <input type="submit", value="Download current databse as CSV">
         </form>
 
-        <!--
         <form action="/shutdown" method="GET">
             <input type="submit", value="Shutdown the raspberry pi">
         </form>
-         -->
+        <!-- make shutdown a confirm box (confirm() <- returns bool) (have to send the get request throgh ajax and js -->
+
     </body>
 </html>

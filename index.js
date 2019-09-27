@@ -6,7 +6,7 @@ const fs = require('fs');
 app.use(express.static('source'));
 app.use(express.urlencoded());          // allows the python interface
 
-const appDir = 'home/pi/nodeServerEtc';
+const appDir = '/home/pi/nodeServerEtc'; // for windows change to '.'
 
 app.get('/', (req, res) => {      //serves dash (page.html) as front page 
     res.sendFile('page.html', {root: appDir + '/source'});
@@ -28,10 +28,11 @@ const manager = require(appDir + '/source/dbManager'); //load the database manag
 
 //function to make the visa interface python script run and then put the results in a json file the server
 
-call_visaInterface = function (boardNumber) {
 
-    var spawn = require("child_process").spawn;
-    var process = spawn('python3', [appDir +"/source/visaInterface.py"]);
+
+call_visaInterface = function (boardNumber) {
+    let spawn = require("child_process").spawn;
+    let process = spawn('python3', [appDir +"/source/visaInterface.py"]);
     let dataString = '';
     console.log(" >> loaded python attempting to gain output: ")
     
@@ -55,6 +56,13 @@ call_visaInterface = function (boardNumber) {
     });
 }
 
+shutdownPi = function () {
+    let spawn = require("child_process").spawn;
+    let process = spawn('python3', [appDir +"/source/shutdown.py"]);
+}
+
+
+
 
 //--------------------------------- FORM PROCESSING from frontend ---------------------------------\\
 
@@ -70,11 +78,11 @@ app.post('/submit-form', (req, res) => { // is activated whenever a get request 
     res.end()
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 
 
-// -- download stuff (in test)
+
+//--------------------------------- misc functions ---------------------------------\\
 
 app.get('/download', (req, res) => {
     manager.convertDbToCsv(function() {
@@ -84,12 +92,12 @@ app.get('/download', (req, res) => {
     });
 });
 
-/*
+
 app.get('/shutdown', (req, res) => {
-    process.exit();
+    shutdownPi();
 });
 
-//manager.convertDbToCsv();
 
- TODO:
-*/
+
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
