@@ -6,9 +6,10 @@ const fs = require('fs');
 app.use(express.static('source'));
 app.use(express.urlencoded());          // allows the python interface
 
+const appDir = 'home/pi/nodeServerEtc';
 
 app.get('/', (req, res) => {      //serves dash (page.html) as front page 
-    res.sendFile('page.html', {root: './source'});
+    res.sendFile('page.html', {root: appDir + '/source'});
 });
 
 
@@ -23,14 +24,14 @@ app.get('/result', (req, res) => {
 
 //--------------------------------- testBoard (call python interface) ---------------------------------\\
 
-const manager = require('./source/dbManager'); //load the database manager which also tests whether the boards return valid results 
+const manager = require(appDir + '/source/dbManager'); //load the database manager which also tests whether the boards return valid results 
 
 //function to make the visa interface python script run and then put the results in a json file the server
 
 call_visaInterface = function (boardNumber) {
 
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./source/visaInterface.py"]);
+    var process = spawn('python3', [appDir +"/source/visaInterface.py"]);
     let dataString = '';
     console.log(" >> loaded python attempting to gain output: ")
     
@@ -47,7 +48,7 @@ call_visaInterface = function (boardNumber) {
     process.stdout.on('end', function () { // calls once the python script finishes
         //JSON.parse(dataString);
         currentTest = null;
-        let data = JSON.parse(fs.readFileSync('./source/results.json'));
+        let data = JSON.parse(fs.readFileSync(appDir + '/source/results.json'));
         
         //console.log(" >> RD1 values: " + data.rd1.microHenries + ", " + data.rd1.ohms);
         currentTest = manager.addJsonToDB(boardNumber, data);
@@ -77,13 +78,18 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 app.get('/download', (req, res) => {
     manager.convertDbToCsv(function() {
-        res.download('./source/dbContents.csv', (err) => {
+        res.download(appDir +'/source/dbContents.csv', (err) => {
             if (err) throw err;
         });
     });
 });
 
+/*
+app.get('/shutdown', (req, res) => {
+    process.exit();
+});
+
 //manager.convertDbToCsv();
 
-/* TODO:
+ TODO:
 */
