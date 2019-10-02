@@ -24,7 +24,7 @@ app.get('/result', (req, res) => {
 
 //--------------------------------- testBoard (call python interface) ---------------------------------\\
 
-const manager = require(appDir + './source/dbManager'); //load the database manager which also tests whether the boards return valid results 
+const manager = require(appDir + '/source/dbManager'); //load the database manager which also tests whether the boards return valid results 
 
 //function to make the visa interface python script run and then put the results in a json file the server
 
