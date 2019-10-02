@@ -79,9 +79,6 @@ app.post('/submit-form', (req, res) => { // is activated whenever a get request 
 });
 
 
-
-
-
 //--------------------------------- misc functions ---------------------------------\\
 
 app.get('/download', (req, res) => {

@@ -70,7 +70,7 @@ exports.convertDbToCsv = function (callback) {
                 console.log(csv);
                 
                 if(i != 0) {
-                    fs.appendFile('./source/dbContents.csv', "\n" + csv.substring(218), function (err) {
+                    fs.appendFile('./source/dbContents.csv', csv.substring(218), function (err) {
                         if (err) throw err;
                         console.log('Appended');
                         if(i < jsonResult.length - 1) {
