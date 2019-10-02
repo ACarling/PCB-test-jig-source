@@ -83,13 +83,11 @@ app.post('/submit-form', (req, res) => { // is activated whenever a get request 
 
 app.get('/download', (req, res) => {
     manager.convertDbToCsv(function() {
+        var date = new Date().toString();
+        date = date.substring(8, 24);
+        fs.rename(appDir + '/source/dbContents.csv', appDir + `/source/dbContents_${date}.csv`)
         res.download(appDir + '/source/dbContents.csv', (err) => {
-            if (err) {
-                fs.appendFile(appDir + '/source/log.txt', err, function() {
-                    throw err;
-                });
-            }
-
+            if (err) throw err;
         });
     });
 });
