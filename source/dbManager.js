@@ -67,7 +67,7 @@ exports.convertDbToCsv = function (callback) {
             let rowJson = JSON.parse("[" + jsonResult[i] + "]");
             converter.json2csv(rowJson, (err, csv) => {
                 if (err) throw err;
-                console.log(csv);
+                //console.log(csv);
                 
                 if(i != 0) {
                     fs.appendFile('./source/dbContents.csv', csv.substring(218), function (err) {
