@@ -83,7 +83,7 @@ app.post('/submit-form', (req, res) => { // is activated whenever a get request 
 
 app.get('/download', (req, res) => {
     manager.convertDbToCsv(function() {
-        res.download(appDir +'/source/dbContents.csv', (err) => {
+        res.download('/source/dbContents.csv', (err) => {
             if (err) throw err;
         });
     });
