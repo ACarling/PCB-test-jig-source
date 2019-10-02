@@ -64,6 +64,7 @@ exports.convertDbToCsv = function (callback) {
         
 
         function DbJsonToCsv (i, jsonResult) {
+            let rows = 0;
             let rowJson = JSON.parse("[" + jsonResult[i] + "]");
             converter.json2csv(rowJson, (err, csv) => {
                 if (err) throw err;
@@ -72,10 +73,11 @@ exports.convertDbToCsv = function (callback) {
                 if(i != 0) {
                     fs.appendFile('./source/dbContents.csv', csv.substring(218), function (err) {
                         if (err) throw err;
-                        console.log('Appended');
+                        rows++;
                         if(i < jsonResult.length - 1) {
                             DbJsonToCsv(i + 1, jsonResult);
-                        } else { 
+                        } else {
+                            console.log(rows); 
                             callback();
                             return;
                         }
@@ -83,10 +85,11 @@ exports.convertDbToCsv = function (callback) {
                 } else {
                     fs.writeFile('./source/dbContents.csv', csv, function (err) {
                         if (err) throw err;
-                        console.log('Saved');
+                        rows++;
                         if(i < jsonResult.length - 1) {
                             DbJsonToCsv(i + 1, jsonResult);
                         } else {
+                            console.log(rows);
                             callback();
                             return;
                         }
