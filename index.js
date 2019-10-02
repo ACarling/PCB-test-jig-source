@@ -98,6 +98,7 @@ app.get('/download', (req, res) => {
 
 
 app.get('/shutdown', (req, res) => {
+    console.log("shutting down");
     shutdownPi();
 });
 
