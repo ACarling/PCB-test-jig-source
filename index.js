@@ -83,8 +83,13 @@ app.post('/submit-form', (req, res) => { // is activated whenever a get request 
 
 app.get('/download', (req, res) => {
     manager.convertDbToCsv(function() {
-        res.download('./source/dbContents.csv', (err) => {
-            if (err) throw err;
+        res.download(appDir + '/source/dbContents.csv', (err) => {
+            if (err) {
+                fs.appendFile(appDir + '/source/log.txt', err, function() {
+                    throw err;
+                });
+            }
+
         });
     });
 });
