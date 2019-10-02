@@ -85,10 +85,13 @@ app.get('/download', (req, res) => {
     manager.convertDbToCsv(function() {
         var date = new Date().toString();
         date = date.substring(8, 24);
-        fs.rename(appDir + '/source/dbContents.csv', appDir + `/source/dbContents_${date}.csv`)
-        res.download(appDir + '/source/dbContents.csv', (err) => {
-            if (err) throw err;
+        fs.rename(appDir + '/source/dbContents.csv', appDir + `/source/dbContents_${date}.csv`, function (err) {
+            if(err) throw err;
+            res.download(appDir + '/source/dbContents.csv', (err) => {
+                if (err) throw err;
+            });
         });
+        
     });
 });
 
