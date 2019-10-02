@@ -84,7 +84,8 @@ app.post('/submit-form', (req, res) => { // is activated whenever a get request 
 app.get('/download', (req, res) => {
     manager.convertDbToCsv(function() {
         var date = new Date().toString();
-        date = date.substring(8, 24);
+        date = date.substring(4, 21);
+        date.replace(/:/g, "-");
         fs.rename(appDir + '/source/dbContents.csv', appDir + `/source/dbContents_${date}.csv`, function (err) {
             if(err) throw err;
             res.download(appDir + `/source/dbContents_${date}.csv`, (err) => {
