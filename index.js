@@ -9,7 +9,7 @@ app.use(express.urlencoded());          // allows the python interface
 const appDir = '/home/pi/nodeServerEtc'; // for windows change to '.'
 
 app.get('/', (req, res) => {      //serves dash (page.html) as front page 
-    res.sendFile('page.html', {root: '/home/pi/nodeServerEtc/source'});
+    res.sendFile('page.html', {root: appDir + '/source'});
 });
 
 
@@ -24,7 +24,7 @@ app.get('/result', (req, res) => {
 
 //--------------------------------- testBoard (call python interface) ---------------------------------\\
 
-const manager = require('/home/pi/nodeServerEtc/source/dbManager'); //load the database manager which also tests whether the boards return valid results 
+const manager = require('dbManager', {root: appDir + '/source'}); //load the database manager which also tests whether the boards return valid results 
 
 //function to make the visa interface python script run and then put the results in a json file the server
 
@@ -32,7 +32,7 @@ const manager = require('/home/pi/nodeServerEtc/source/dbManager'); //load the d
 
 call_visaInterface = function (boardNumber) {
     let spawn = require("child_process").spawn;
-    let process = spawn('python3', ["/home/pi/nodeServerEtc/source/visaInterface.py"]);
+    let process = spawn('python3', ["visaInterface.py", {root: appDir + '/source'}]);
     let dataString = '';
     console.log(" >> loaded python attempting to gain output: ")
     
@@ -49,7 +49,7 @@ call_visaInterface = function (boardNumber) {
     process.stdout.on('end', function () { // calls once the python script finishes
         //JSON.parse(dataString);
         currentTest = null;
-        let data = JSON.parse(fs.readFileSync('/home/pi/nodeServerEtc/source/results.json'));
+        let data = JSON.parse(fs.readFileSync('results.json', {root: appDir + '/source'}));
         
         //console.log(" >> RD1 values: " + data.rd1.microHenries + ", " + data.rd1.ohms);
         currentTest = manager.addJsonToDB(boardNumber, data);
@@ -58,7 +58,7 @@ call_visaInterface = function (boardNumber) {
 
 shutdownPi = function () {
     let spawn = require("child_process").spawn;
-    let process = spawn('python3', ["/home/pi/nodeServerEtc/source/shutdown.py"]);
+    let process = spawn('python3', ["shutdown.py", {root: appDir + '/source'}]);
 }
 
 
@@ -86,9 +86,9 @@ app.get('/download', (req, res) => {
         var date = new Date().toString();
         date = date.substring(4, 21);
         date.replace(/:/g, "-");
-        fs.rename('/home/pi/nodeServerEtc/source/dbContents.csv', `/home/pi/nodeServerEtc/source/dbContents_${date}.csv`, function (err) {
+        fs.rename('dbContents.csv', {root: appDir + '/source'}, `dbContents_${date}.csv`, {root: appDir + '/source'}, function (err) {
             if(err) throw err;
-            res.download(`/home/pi/nodeServerEtc/source/dbContents_${date}.csv`, (err) => {
+            res.download(`dbContents_${date}.csv`, {root: appDir + '/source'}, (err) => {
                 if (err) throw err;
             });
         });
