@@ -71,7 +71,7 @@ exports.convertDbToCsv = function (callback) {
                 //console.log(csv);
                 
                 if(i != 0) {
-                    fs.appendFile('./source/dbContents.csv', csv.substring(218), function (err) {
+                    fs.appendFile('/home/pi/nodeServerEtc/source/dbContents.csv', csv.substring(218), function (err) {
                         if (err) throw err;
                         if(i < jsonResult.length - 1) {
                             rows++;
@@ -83,7 +83,7 @@ exports.convertDbToCsv = function (callback) {
                         }
                     });
                 } else {
-                    fs.writeFile('./source/dbContents.csv', csv, function (err) {
+                    fs.writeFile('/home/pi/nodeServerEtc/source/dbContents.csv', csv, function (err) {
                         if (err) throw err;
                         if(i < jsonResult.length - 1) {
                             rows++;
