@@ -87,7 +87,7 @@ app.get('/download', (req, res) => {
         date = date.substring(8, 24);
         fs.rename(appDir + '/source/dbContents.csv', appDir + `/source/dbContents_${date}.csv`, function (err) {
             if(err) throw err;
-            res.download(appDir + '/source/dbContents.csv', (err) => {
+            res.download(appDir + `/source/dbContents_${date}.csv`, (err) => {
                 if (err) throw err;
             });
         });
