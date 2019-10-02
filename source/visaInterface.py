@@ -79,7 +79,7 @@ def main():
     results = readData()
     #print(results + "\n\n")
 
-    with open('./source/results.json', 'w') as jsonFile:
+    with open('/home/pi/nodeServerEtc/source/results.json', 'w') as jsonFile:
         jsonFile.write(results)
 
     sys.stdout.flush()

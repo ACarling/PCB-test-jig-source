@@ -33,6 +33,7 @@ const manager = require(appDir + '/source/dbManager'); //load the database manag
 call_visaInterface = function (boardNumber) {
     let spawn = require("child_process").spawn;
     let process = spawn('python3', [appDir + "/source/visaInterface.py"]);
+    Error.log("loaded python");
     let dataString = '';
     console.log(" >> loaded python attempting to gain output: ")
     

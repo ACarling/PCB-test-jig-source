@@ -1,2 +1,2 @@
 import os
-os.system("shutdown now -h")
+os.system("shutdown -h")
