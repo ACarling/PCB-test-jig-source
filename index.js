@@ -28,8 +28,6 @@ const manager = require(appDir + '/source/dbManager'); //load the database manag
 
 //function to make the visa interface python script run and then put the results in a json file the server
 
-
-
 call_visaInterface = function (boardNumber) {
     let spawn = require("child_process").spawn;
     let process = spawn('python3', [appDir + "/source/visaInterface.py"]);
@@ -39,9 +37,7 @@ call_visaInterface = function (boardNumber) {
     currentTest = "loading python subroutine"; //the current test variable is the message routed to the front-ened
 
     process.stdout.on('data', function (data) {         //data is everything that has been printed and flushed to the stdout from the python script
-        dataString += data.toString();                  //TODO: use this line to get error messages to the front end properly 
-                                                        //   especially seeings how the data is put into a json file rather 
-                                                        //   rather than the output stream
+        dataString += data.toString();                  
         currentTest = data.toString();
         console.log(currentTest);
     });
@@ -100,7 +96,6 @@ app.get('/download', (req, res) => {
 app.get('/shutdown', (req, res) => {
     console.log("shutting down");
     shutdownPi();
-    process.exit(22);
 });
 
 
