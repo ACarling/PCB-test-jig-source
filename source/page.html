@@ -3,6 +3,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
 
+            function iterateFormData(formData) {
+                if(formData.match(/^[0-9]*$/)) {
+                    return formData++;
+                }
+                else {
+                    let type = formData.charAt(0);
+                    let number = formData.substring(1);
+                    return (type + (number + 1))
+                }
+                
+            }
 
             function validateInput(formInput) {
                 /*
@@ -11,15 +22,15 @@
                 * letter cannot be after number
                 * letter must only be a - for amp, or b - for base
                 */
-                if(formInput.match(/^[0-9]*$/)) {
+                if(formInput.match(/^[0-9]*$/)) { // all numbers
                     return true;
-                } else if (formInput.length == 1 && !formInput.match(/^[0-9]*$/)) {
+                } else if (formInput.length == 1 && !formInput.match(/^[0-9]*$/)) { // 1 character and only a letter
                     return false;
                 } else {
                     let type = formInput.charAt(0);
                     let number = formInput.substring(1);
-                    console.log(type + ", " + number);
-                    if(!(type.match(/a/ig) || type.match(/b/ig)) || !number.match(/^[0-9]*$/)) {
+                    console.log(type + ", " + number); // split number and letter
+                    if(!(type.match(/a/ig) || type.match(/b/ig)) || !number.match(/^[0-9]*$/)) { // check if type (heading letter) is an a or b, check if the following chars are numeric
                         return false;
                     } else {
                         return true;
@@ -77,7 +88,7 @@
                         });
 
                         if (iterate) { // if checkbox is ticked (see line 11)
-                            formData++;
+                            formData = iterateFormData(formData); // -------------------------------------------------------- change to iterator functon
                             //console.log("got to this point: " + formData);
                             document.getElementById('boardNumber').value = formData;
                         }
