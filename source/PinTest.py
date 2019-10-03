@@ -32,7 +32,7 @@ while True:
     relayTest = input("type a number between 1 and 7 or 'q' to quit")
     if (relayTest == 'q'):
         break
-    int(relayTest)
+    relayTest = int(relayTest)
     GPIO.output(relayCombinations[relayTest][0], 1)
     GPIO.output(relayCombinations[relayTest][1], 1)
     sleep(3)
