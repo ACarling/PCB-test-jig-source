@@ -45,5 +45,8 @@ def allFlash():
     for i in relayCombinations:
         GPIO.output(i[0], 1)
         GPIO.output(i[1], 1)
-    sleep(2)
+    sleep(3)
+    for i in relayCombinations:
+        GPIO.output(i[0],0)
+        GPIO.output(i[1],0)
 
