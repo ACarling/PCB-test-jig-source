@@ -10,7 +10,7 @@
                 else {
                     let type = formData.charAt(0);
                     let number = formData.substring(1);
-                    return (type + (number + 1))
+                    return (type + (parseInt(number) + 1).toString());
                 }
                 
             }
