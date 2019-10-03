@@ -43,8 +43,7 @@ def allOff():
 
 def allFlash():
     for i in relayCombinations:
-        GPIO.output(relayCombinations[i][0], 1)
-        GPIO.output(relayCombinations[i][1], 1)
+        GPIO.output(i[0], 1)
+        GPIO.output(i[1], 1)
     sleep(2)
-    allOff()
 
