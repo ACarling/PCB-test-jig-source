@@ -40,7 +40,7 @@ exports.addJsonToDB = function (boardNumber, jsonData) {
                 });
     console.log("added board number: " + boardNumber + " to database");
 
-    return (failedTests.length < 1 ? "finished no failed tests" : failedTests);
+    return (failedTests.length < 10 ? `finished board ${boardNumber}: no failed tests` : failedTests);
     //return "board inductance fits in range " + henriesLower + " < x < " + henriesUpper + ", it has been added to database";
 }
 
