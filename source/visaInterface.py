@@ -36,11 +36,11 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
             gpioModule.nextCombination(x) 
 
             inst.write("FUNCTION:impa L")
-            time.sleep(.8)
+            time.sleep(.7)
             microHenries = round((1000000 if x < 7 else 1000) * float(inst.query("FETCH?")[1:12]), 3)
             time.sleep(.5)
             inst.write("FUNCTION:impa R")
-            time.sleep(.8)
+            time.sleep(.7)
             ohms = round(float(inst.query("FETCH?")[1:12]), 3)
 
             json_string = {
