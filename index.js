@@ -98,7 +98,14 @@ app.get('/shutdown', (req, res) => {
     shutdownPi();
 });
 
-
-
-
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+
+
+/* TODO:
+*   fix recursive function in dbManager (somehow make it a loop despite async problems)
+*   optimise visainterface.py function (times between checks etc)
+*
+*
+*
+*/

@@ -33,14 +33,14 @@ def readData(): # READS DATA FROM SCREEN 'L' (HENRIES) THEN READ FROM SCREEN R (
         print("RD{}".format(x+1) if x < 7 else "total", end="") # --------- changed != to <= ----------------------- test please
         sys.stdout.flush()
         try:
-            gpioModule.nextCombination(x) #should turn on correct pin
+            gpioModule.nextCombination(x) 
 
             inst.write("FUNCTION:impa L")
-            time.sleep(.7)
+            time.sleep(.8)
             microHenries = round((1000000 if x < 7 else 1000) * float(inst.query("FETCH?")[1:12]), 3)
             time.sleep(.5)
             inst.write("FUNCTION:impa R")
-            time.sleep(.7)
+            time.sleep(.8)
             ohms = round(float(inst.query("FETCH?")[1:12]), 3)
 
             json_string = {
@@ -62,7 +62,7 @@ def readDataTest():
         sys.stdout.flush()
         microHenries = 0
         ohms = 0
-        gpioModule.nextCombination(x) #should turn on correct pin
+        gpioModule.nextCombination(x) 
         microHenries = random.randint(175,180)
         ohms = random.randint(10,16)
 
