@@ -17,7 +17,6 @@ const totalLower = 5;
 exports.addJsonToDB = function (boardNumber, jsonData) {
 
     let failedTests = "finished: ";
-    let failStatus = 'p';
 
     let jsonArray = [jsonData.rd1, jsonData.rd2, jsonData.rd3, jsonData.rd4, jsonData.rd5, jsonData.rd6, jsonData.rd7, jsonData.rdtotal];
     for (var i = 0; i < jsonArray.length; i++) {
@@ -28,15 +27,15 @@ exports.addJsonToDB = function (boardNumber, jsonData) {
         } else if ((currentTest.microHenries > henriesLower && currentTest.microHenries < henriesUpper)) {
             continue;
         } else {
-            failStatus = 'f';
             failedTests += "----| " + "rd" + (i + 1) + " failed (" + currentTest.microHenries + ")\n";
             console.log ("----| " + "rd" + (i + 1) + " failed (" + currentTest.microHenries + ")");
         }
     }
+ 
 
-    pool.query('INSERT INTO test_res(number, rd1, rd2, rd3, rd4, rd5, rd6, rd7, total) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9, $10)' +
-                    'ON CONFLICT (number) DO UPDATE SET rd1 = $2, rd2 = $3, rd3 = $4, rd4 = $5, rd5 = $6, rd6 = $7, rd7 = $8, total = $9, passfail = $10',
-                [boardNumber, jsonData.rd1, jsonData.rd2, jsonData.rd3, jsonData.rd4, jsonData.rd5, jsonData.rd6, jsonData.rd7, jsonData.rdtotal, failStatus], (err, res) => {
+    pool.query('INSERT INTO test_res(number, rd1, rd2, rd3, rd4, rd5, rd6, rd7, total) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)' +
+                    'ON CONFLICT (number) DO UPDATE SET rd1 = $2, rd2 = $3, rd3 = $4, rd4 = $5, rd5 = $6, rd6 = $7, rd7 = $8, total = $9',
+                [boardNumber, jsonData.rd1, jsonData.rd2, jsonData.rd3, jsonData.rd4, jsonData.rd5, jsonData.rd6, jsonData.rd7, jsonData.rdtotal], (err, res) => {
                     if (err) throw err;
                 });
     console.log("added board number: " + boardNumber + " to database");
