@@ -52,11 +52,6 @@ call_visaInterface = function (boardNumber) {
     });
 }
 
-shutdownPi = function () {
-    let spawn = require("child_process").spawn;
-    let process = spawn('python3', [appDir +"/source/shutdown.py"]);
-}
-
 
 
 
@@ -78,12 +73,17 @@ app.post('/submit-form', (req, res) => { // is activated whenever a get request 
 //--------------------------------- misc functions ---------------------------------\\
 
 app.get('/download', (req, res) => {
+
+    manager.convertDb( function() {
+        fs.rename(appDir + `/source/dbContents.csv`, appDir + `/source/dbContents.csv`, function (err) {
+            if(err) throw err;
+            res.download(appDir + `/source/dbContents.csv`, (err) => {
+                if (err) throw err;
+            });
+        });
+    });
+    /*
     manager.convertDbToCsv(function() {
-        /*
-       var date = new Date().toString();
-        date = date.substring(4, 21);
-        date.replace(/:/g, "-");
-        */
         fs.rename(appDir + `/source/dbContents.csv`, appDir + `/source/dbContents.csv`, function (err) {
             if(err) throw err;
             res.download(appDir + `/source/dbContents.csv`, (err) => {
@@ -91,7 +91,7 @@ app.get('/download', (req, res) => {
             });
         });
         
-    });
+    });*/
 });
 
 
