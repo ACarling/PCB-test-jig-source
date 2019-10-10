@@ -54,7 +54,6 @@ call_visaInterface = function (boardNumber) {
 
 
 
-
 //--------------------------------- FORM PROCESSING from frontend ---------------------------------\\
 
 app.post('/submit-form', (req, res) => { // is activated whenever a get request is seen to be made to submit-form
@@ -82,16 +81,6 @@ app.get('/download', (req, res) => {
             });
         });
     });
-    /*
-    manager.convertDbToCsv(function() {
-        fs.rename(appDir + `/source/dbContents.csv`, appDir + `/source/dbContents.csv`, function (err) {
-            if(err) throw err;
-            res.download(appDir + `/source/dbContents.csv`, (err) => {
-                if (err) throw err;
-            });
-        });
-        
-    });*/
 });
 
 
@@ -105,7 +94,6 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 
 /* TODO:
-*   fix recursive function in dbManager (somehow make it a loop despite async problems)
 *   optimise visainterface.py function (times between checks etc)
 *
 *

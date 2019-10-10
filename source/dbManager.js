@@ -85,7 +85,7 @@ async function jsonToCsv(dbArray, callback) {
     for(let index = 0; index < dbArray.length; index++) {                   // for every line in the array of db elements
         let rowOfJson = JSON.parse("[" + dbArray[index] + "]");             // parse to format readable by json2csv
         const csv = await writeToCsv(rowOfJson, index, dbArray.length);     // wait for write to csv function to complete
-        console.log(csv.substring(227));
+        //console.log(csv.substring(227));                                    
     }
     console.log("finished");
     callback();
@@ -98,8 +98,8 @@ function writeToCsv (rowOfJson, row, Arraylength) {
             else {
                 fs.appendFile('/home/pi/nodeServerEtc/source/dbContents.csv', csv.substring(227), function (err) {
                     if (err) reject(err);
-                    if(row == Arraylength) {
-                        console.log("finished with:" + row + " rows");
+                    if(row == Arraylength - 1) {
+                        console.log("finished with:" + (row + 1) + " rows");
                     }
                     resolve(csv);
                 });
