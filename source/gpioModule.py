@@ -41,11 +41,11 @@ def allOff():
         GPIO.output(i[1],0)
     GPIO.cleanup()
 
-def allFlash():
+def allFlash(sleepTime):
     for i in relayCombinations:
         GPIO.output(i[0], 1)
         GPIO.output(i[1], 1)
-    sleep(3)
+    sleep(sleepTime)
     for i in relayCombinations:
         GPIO.output(i[0],0)
         GPIO.output(i[1],0)
