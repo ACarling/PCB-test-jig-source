@@ -13,6 +13,8 @@ GPIO.setup(29, GPIO.OUT) #rd6
 GPIO.setup(31, GPIO.OUT) #rd7
 GPIO.setup(32, GPIO.OUT) #O
 
+GPIO.setup(36, GPIO.OUT) #state pin
+
 relayPins = [11,13,15,16,18,29,31,32]
 
 comboNumber = 0
@@ -39,14 +41,24 @@ def allOff():
     for i in relayCombinations:
         GPIO.output(i[0],0)
         GPIO.output(i[1],0)
+    GPIO.output(36,0)
     GPIO.cleanup()
 
-def allFlash(sleepTime):
+def allFlash(delay, interval=None):
     for i in relayCombinations:
         GPIO.output(i[0], 1)
         GPIO.output(i[1], 1)
-    sleep(sleepTime)
-    for i in relayCombinations:
-        GPIO.output(i[0],0)
-        GPIO.output(i[1],0)
+    sleep(delay)
+    if interval is not None:
+        for i in relayCombinations:
+            GPIO.output(i[0],0)
+            GPIO.output(i[1],0)
+        sleep(interval)
+
+def flashState(delay, interval=None):
+    GPIO.output(36, 1)
+    sleep(delay)
+    if interval is not None:
+        GPIO.output(36,0)
+        sleep(interval)
 
