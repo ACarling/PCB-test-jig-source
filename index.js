@@ -83,19 +83,4 @@ app.get('/download', (req, res) => {
     });
 });
 
-
-app.get('/shutdown', (req, res) => {
-    console.log("shutting down");
-    shutdownPi();
-});
-
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-
-
-/* TODO:
-*   optimise visainterface.py function (times between checks etc)
-*
-*
-*
-*/
