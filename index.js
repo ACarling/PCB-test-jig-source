@@ -69,7 +69,7 @@ app.post('/submit-form', (req, res) => { // is activated whenever a get request 
 });
 
 
-//--------------------------------- misc functions ---------------------------------\\
+//--------------------------------- front end databse interaction ---------------------------------\\
 
 app.get('/download', (req, res) => {
 
