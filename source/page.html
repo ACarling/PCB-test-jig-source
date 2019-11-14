@@ -5,7 +5,7 @@
 
             function iterateFormData(formData) {
                 if(formData.match(/^[0-9]*$/)) {
-                    return formData++;
+                    return (parseInt(formData) + 1).toString();
                 }
                 else {
                     let type = formData.charAt(0);
